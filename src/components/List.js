@@ -1,7 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from '../actions'
-import {getEmployees} from '../employees'
+import { getEmployees } from '../employees'
+import { Dialog } from './Dialog'
 
 class List extends React.PureComponent {
 
@@ -11,28 +12,31 @@ class List extends React.PureComponent {
   }
 
   render () {
+    const {props: {list, isAddDialogOpen, addDialogOpen, addDialogClose}} = this
     return (
       <div className='list'>
         <h2>Список сотрудников</h2>
-        { this.props.list.length
+        { list.length
           ? <div className='list__table'>
             <div className='list__table-row'>
               <div className='list__table-col list__table_header'>Имя</div>
               <div className='list__table-col list__table_header'>Фамилия</div>
               <div className='list__table-col list__table_header'>Должность</div>
-              <div className='list__table-col list__table_header'>Описание</div>
             </div>
-            {this.props.list.map(item =>
+            { list.map(item =>
               <div key={item.id} className='list__table-row'>
                 <div className='list__table-col'>{item.name}</div>
                 <div className='list__table-col'>{item.surname}</div>
                 <div className='list__table-col'>{item.position}</div>
-                <div className='list__table-col'>{item.description}</div>
               </div>
             )}
           </div>
           : <div>Список сотрудников пуст</div>
         }
+        <button onClick={addDialogOpen} className='list__button'>
+          Добавить сотрудника
+        </button>
+        {isAddDialogOpen && <Dialog type='add' close={addDialogClose} />}
       </div>
     );
   }
@@ -40,13 +44,18 @@ class List extends React.PureComponent {
 
 function mapStateToProps(state) {
   return {
-    list: state.rootReducer.list
+    list: state.rootReducer.list,
+    isAddDialogOpen: state.rootReducer.isAddDialogOpen,
+    isChangeDialogOpen: state.rootReducer.isChangeDialogOpen,
+    isInfoDialogOpen: state.rootReducer.isInfoDialogOpen,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return ({
     getList: (data) => { dispatch(actions.getList(data)) },
+    addDialogOpen: () => { dispatch(actions.addDialogOpen()) },
+    addDialogClose: () => { dispatch(actions.addDialogClose()) },
   })
 }
 

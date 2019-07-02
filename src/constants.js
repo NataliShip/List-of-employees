@@ -1,1 +1,3 @@
 export const GET_LIST = 'GET_LIST'
+export const ADD_DIALOG_OPEN = 'ADD_DIALOG_OPEN'
+export const ADD_DIALOG_CLOSE = 'ADD_DIALOG_CLOSE'
