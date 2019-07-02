@@ -27,6 +27,20 @@ export function rootReducer(state = initialState, action) {
         ...state,
         list: [...state.list, action.data]
       }
+    case types.EDIT_EMPLOYEE:
+      const newList = state.list;
+      newList.forEach(item => {
+        if (item.id === action.employee.id) {
+          item.name = action.employee.name;
+          item.surname = action.employee.surname;
+          item.position = action.employee.position;
+          item.description = action.employee.description;
+        }
+      })
+      return {
+        ...state,
+        list: newList
+      }
     default: {
       return state;
     }

@@ -15,3 +15,7 @@ export const dialogClose = () => {
 export const addEmployee = (data) => {
   return { type: types.ADD_EMPLOYEE, data }
 }
+
+export const editEmployee = (employee) => {
+  return { type: types.EDIT_EMPLOYEE, employee }
+}

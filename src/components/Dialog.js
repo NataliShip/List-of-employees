@@ -1,39 +1,77 @@
 import React from 'react';
 
 export const Dialog = (props) => {
-  const addName = React.createRef();
-  const addSurname = React.createRef();
-  const addPosition = React.createRef();
-  const addDescription = React.createRef();
+  const name = React.createRef();
+  const surname = React.createRef();
+  const position = React.createRef();
+  const description = React.createRef();
 
   function addEmployee() {
     const id = new Date().getTime();
     const newEmployee = {
       id,
-      name: addName.current.value,
-      surname: addSurname.current.value,
-      position: addPosition.current.value,
-      description: addDescription.current.value,
+      name: name.current.value,
+      surname: surname.current.value,
+      position: position.current.value,
+      description: description.current.value,
     }
     props.add(newEmployee);
+    props.close();
+  }
+
+  function editEmployee() {
+    const newEmployee = {
+      id: props.item.id,
+      name: name.current.value,
+      surname: surname.current.value,
+      position: position.current.value,
+      description: description.current.value,
+    }
+    props.edit(newEmployee);
     props.close();
   }
 
   return (
     <div className='dialog'>
       <div className='dialog__overlay' onClick={props.close}></div>
-      { props.type === 'add' &&
          <div className='dialog__window'>
-           <h2 className='dialog__header'>Добавить нового сотрудника</h2>
-           <input ref={addName} className='dialog__input' type='text' placeholder='Имя' />
-           <input ref={addSurname} className='dialog__input' type='text' placeholder='Фамилмя' />
-           <input ref={addPosition} className='dialog__input' type='text' placeholder='Должность' />
-           <textarea ref={addDescription} className='dialog__input' placeholder='Описание' />
+           <h2 className='dialog__header'>
+             {props.type === 'add' ? 'Добавить нового сотрудника' : 'Редактировать данные о сотруднике'}
+           </h2>
+           <input
+             ref={name}
+             defaultValue={props.item ? props.item.name : ''}
+             className='dialog__input'
+             type='text'
+             placeholder='Имя'
+           />
+           <input
+             ref={surname}
+             defaultValue={props.item ? props.item.surname : ''}
+             className='dialog__input'
+             type='text'
+             placeholder='Фамилмя'
+           />
+           <input
+             ref={position}
+             defaultValue={props.item ? props.item.position : ''}
+             className='dialog__input'
+             type='text'
+             placeholder='Должность'
+           />
+           <textarea
+             ref={description}
+             defaultValue={props.item ? props.item.description : ''}
+             className='dialog__input'
+             placeholder='Описание'
+           />
            <div className='dialog__button-container'>
-             <button className='dialog__button' onClick={addEmployee}>Добавить</button>
+             {props.type === 'add'
+               ? <button className='dialog__button' onClick={addEmployee}>Добавить</button>
+               : <button className='dialog__button' onClick={editEmployee}>Редактировать</button>
+             }
            </div>
          </div>
-      }
     </div>
   )
 }
