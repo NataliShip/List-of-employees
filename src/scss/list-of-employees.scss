@@ -9,5 +9,30 @@ body {
 
 .list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  &__table {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    border: 1px solid #666;
+    overflow-y: auto;
+  }
+
+  &__table-row {
+    display: flex;
+  }
+
+  &__table-col {
+    padding: 10px;
+    border: 1px solid #666;
+    width: 25%;
+    min-width: 100px;
+  }
+
+  &__table_header {
+    background: aquamarine;
+  }
 }
