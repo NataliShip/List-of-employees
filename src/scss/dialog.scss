@@ -28,7 +28,7 @@
     font-size: 18px;
     width: 260px;
     margin-top: 30px;
-    border: 2px solid #666;
+    border: 2px solid #333;
     cursor: pointer;
     transition: all 0.7s;
   }
@@ -38,7 +38,7 @@
   }
 
   &__button:hover {
-    background: #666;
+    background: #333;
     color: #fff;
   }
 

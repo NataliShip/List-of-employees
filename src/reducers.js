@@ -24,6 +24,11 @@ export function rootReducer(state = initialState, action) {
         ...state,
         isAddDialogOpen: false
       }
+    case types.ADD_EMPLOYEE:
+      return {
+        ...state,
+        list: [...state.list, action.data]
+      }
     default: {
       return state;
     }

@@ -12,7 +12,7 @@ class List extends React.PureComponent {
   }
 
   render () {
-    const {props: {list, isAddDialogOpen, addDialogOpen, addDialogClose}} = this
+    const {props: {list, isAddDialogOpen, addDialogOpen, addDialogClose, addEmployee}} = this
     return (
       <div className='list'>
         <h2>Список сотрудников</h2>
@@ -36,7 +36,7 @@ class List extends React.PureComponent {
         <button onClick={addDialogOpen} className='list__button'>
           Добавить сотрудника
         </button>
-        {isAddDialogOpen && <Dialog type='add' close={addDialogClose} />}
+        {isAddDialogOpen && <Dialog type='add' close={addDialogClose} add={addEmployee} />}
       </div>
     );
   }
@@ -54,6 +54,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return ({
     getList: (data) => { dispatch(actions.getList(data)) },
+    addEmployee: (data) => { dispatch(actions.addEmployee(data)) },
     addDialogOpen: () => { dispatch(actions.addDialogOpen()) },
     addDialogClose: () => { dispatch(actions.addDialogClose()) },
   })
