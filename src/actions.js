@@ -4,12 +4,12 @@ export const getList = (data) => {
   return { type: types.GET_LIST, data}
 }
 
-export const addDialogOpen = () => {
-  return { type: types.ADD_DIALOG_OPEN }
+export const dialogOpen = (name) => {
+  return { type: types.DIALOG_OPEN, name }
 }
 
-export const addDialogClose = () => {
-  return { type: types.ADD_DIALOG_CLOSE }
+export const dialogClose = () => {
+  return { type: types.DIALOG_CLOSE }
 }
 
 export const addEmployee = (data) => {

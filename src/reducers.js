@@ -2,9 +2,7 @@ import * as types from './constants';
 
 const initialState = {
   list: [],
-  isAddDialogOpen: false,
-  isChangeDialogOpen: false,
-  isInfoDialogOpen: false,
+  activeDialog: null,
 };
 
 export function rootReducer(state = initialState, action) {
@@ -14,15 +12,15 @@ export function rootReducer(state = initialState, action) {
         ...state,
         list: action.data
       }
-    case types.ADD_DIALOG_OPEN:
+    case types.DIALOG_OPEN:
       return {
         ...state,
-        isAddDialogOpen: true
+        activeDialog: action.name
       }
-    case types.ADD_DIALOG_CLOSE:
+    case types.DIALOG_CLOSE:
       return {
         ...state,
-        isAddDialogOpen: false
+        activeDialog: null
       }
     case types.ADD_EMPLOYEE:
       return {

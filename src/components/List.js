@@ -12,7 +12,7 @@ class List extends React.PureComponent {
   }
 
   render () {
-    const {props: {list, isAddDialogOpen, addDialogOpen, addDialogClose, addEmployee}} = this
+    const { props: {list, activeDialog, dialogOpen, dialogClose, addEmployee} } = this
     return (
       <div className='list'>
         <h2>Список сотрудников</h2>
@@ -33,10 +33,10 @@ class List extends React.PureComponent {
           </div>
           : <div>Список сотрудников пуст</div>
         }
-        <button onClick={addDialogOpen} className='list__button'>
+        <button onClick={() => dialogOpen('add')} className='list__button'>
           Добавить сотрудника
         </button>
-        {isAddDialogOpen && <Dialog type='add' close={addDialogClose} add={addEmployee} />}
+        { activeDialog === 'add' && <Dialog type='add' close={dialogClose} add={addEmployee} /> }
       </div>
     );
   }
@@ -45,9 +45,7 @@ class List extends React.PureComponent {
 function mapStateToProps(state) {
   return {
     list: state.rootReducer.list,
-    isAddDialogOpen: state.rootReducer.isAddDialogOpen,
-    isChangeDialogOpen: state.rootReducer.isChangeDialogOpen,
-    isInfoDialogOpen: state.rootReducer.isInfoDialogOpen,
+    activeDialog: state.rootReducer.activeDialog,
   }
 }
 
@@ -55,8 +53,8 @@ function mapDispatchToProps(dispatch) {
   return ({
     getList: (data) => { dispatch(actions.getList(data)) },
     addEmployee: (data) => { dispatch(actions.addEmployee(data)) },
-    addDialogOpen: () => { dispatch(actions.addDialogOpen()) },
-    addDialogClose: () => { dispatch(actions.addDialogClose()) },
+    dialogOpen: (name) => { dispatch(actions.dialogOpen(name)) },
+    dialogClose: () => { dispatch(actions.dialogClose()) },
   })
 }
 
