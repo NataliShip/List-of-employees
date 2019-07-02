@@ -1,11 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../actions'
 import {getEmployees} from '../employees'
 
 class List extends React.PureComponent {
 
   componentDidMount() {
     const data = getEmployees();
-    console.log(data);
+    this.props.getList(data);
   }
 
   render () {
@@ -17,4 +19,16 @@ class List extends React.PureComponent {
   }
 }
 
-export default List;
+function mapStateToProps(state) {
+  return {
+    list: state.rootReducer.list
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return ({
+    getList: (data) => { dispatch(actions.getList(data)) },
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);
